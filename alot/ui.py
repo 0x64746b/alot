@@ -186,6 +186,7 @@ class UI(object):
         shuts down user interface without cleaning up.
         Use a :class:`commands.globals.ExitCommand` for a clean shutdown.
         """
+        raise SystemError('Major fuck up while quitting. What now?')
         reactor.stop()
 
     def buffer_open(self, buf):
