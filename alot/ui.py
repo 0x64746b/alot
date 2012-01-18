@@ -10,6 +10,7 @@ from commands import commandfactory
 from alot.commands import CommandParseError
 import widgets
 
+import inspect
 
 class InputWrap(urwid.WidgetWrap):
     """
@@ -85,6 +86,8 @@ class UI(object):
         """
         self.dbman = dbman
         self.accountman = accountman
+        #register UI with config parser
+        config.ui = self
 
         if not colourmode:
             colourmode = config.getint('general', 'colourmode')
@@ -105,6 +108,7 @@ class UI(object):
 
         logging.debug('fire first command')
         self.apply_command(initialcmd)
+        logging.debug("starting mainloop")
         self.mainloop.run()
 
     def unhandeled_input(self, key):
@@ -384,6 +388,8 @@ class UI(object):
         #head = urwid.Text('notmuch gui')
         #h=urwid.AttrMap(head, 'header')
         #self.mainframe.set_header(h)
+
+        logging.debug("this is ui.update() called from {}()".format(inspect.stack()[1][3]))
 
         # body
         if self.current_buffer:

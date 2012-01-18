@@ -48,6 +48,7 @@ class AlotConfigParser(FallbackConfigParser):
     def __init__(self):
         FallbackConfigParser.__init__(self)
         self.hooks = None
+        self.ui = None
 
     def get_hook(self, key):
         """return hook (`callable`) identified by `key`"""
@@ -181,6 +182,7 @@ class AlotConfigParser(FallbackConfigParser):
         :returns: The highlighting rules
         :rtype: :py:class:`collections.OrderedDict`
         """
+        self.ui.notify("Getting highlighting rules...")
         rules = OrderedDict()
         try:
             config_string = self.get('highlighting', 'rules')
